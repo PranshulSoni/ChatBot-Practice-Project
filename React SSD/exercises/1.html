@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const container = document.querySelector(".js-container");
+      function Input({ price, product }) {
+        return (
+          <div>
+            <p>{product}</p>
+            <p>Price: {price}</p>
+            <button>Add to cart</button>
+          </div>
+        );
+      }
+      function App() {
+        return (
+          <>
+            <Input price="20" product="hello" />
+            <Input price="30" product="thirst" />
+            <Input price="69" product="sex" />
+          </>
+        );
+      }
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>

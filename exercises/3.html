@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function App() {
+        const [count, setCount] = React.useState(0);
+        const [isClicking, setIsClicking] = React.useState(false);
+        const intervalRef = React.useRef(null);
+
+        // Start or stop the auto-clicker
+        function handleClicking() {
+          if (isClicking) {
+            clearInterval(intervalRef.current);
+            setIsClicking(false);
+          } else {
+            intervalRef.current = setInterval(() => {
+              setCount((prev) => prev + 1);
+            }, 1000);
+            setIsClicking(true);
+            console.log(intervalRef.current);
+          }
+        }
+
+        // Reset the counter and stop auto-clicking
+        function handleReset() {
+          setCount(0);
+          clearInterval(intervalRef.current);
+          setIsClicking(false);
+        }
+
+        // Clean up interval on unmount
+        React.useEffect(() => {
+          return () => clearInterval(intervalRef.current);
+        }, []);
+
+        return (
+          <div>
+            <button>Clicked {count} Time</button>
+            <button onClick={handleReset}>Reset</button>
+            <button onClick={handleClicking}>
+              {isClicking ? "Stop" : "Auto Click"}
+            </button>
+          </div>
+        );
+      }
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>

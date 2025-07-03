@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Add a container for React -->
+    <div class="js-container"></div>
+    <script type="module">
+      import { products } from "./products.js";
+      window.products = products; // Make available for Babel script
+    </script>
+    <script type="text/babel">
+      // Access products from window.products
+      const container = document.querySelector(".js-container");
+      function ProductList() {
+        const products = window.products || [];
+        return (
+          <div>
+            <h2>Product List</h2>
+            {products.map((product) => (
+              <div
+                key={product.id}
+                style={{
+                  border: "1px solid #ccc",
+                  margin: "10px",
+                  padding: "10px",
+                }}
+              >
+                <p>{product.name}</p>
+                <p>Price: ${(product.priceCents / 100).toFixed(2)}</p>
+              </div>
+            ))}
+          </div>
+        );
+      }
+      ReactDOM.createRoot(container).render(<ProductList />);
+    </script>
+  </body>
+</html>
