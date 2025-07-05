@@ -178,10 +178,7 @@
               className="input-field"
               onKeyDown={handleKeyDown}
             />
-            <button
-              onClick={sendMessage}
-              className="send-button"
-            >
+            <button onClick={sendMessage} className="send-button">
               Send
             </button>
           </div>
@@ -200,7 +197,7 @@
 
       function ChatMessages({ chatMessage }) {
         const chatMessageRef = React.useRef(null);
-        React.useEffect(() => { 
+        React.useEffect(() => {
           const containerElem = chatMessageRef.current;
           if (containerElem) {
             containerElem.scrollTop = containerElem.scrollHeight;
